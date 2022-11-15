@@ -2,7 +2,7 @@ const User = require('../users/users-model')
 
 const checkUsernameAndPassword = (req, res, next) => {
     const { username, password } = req.body
-    if(!username && !password){
+    if(!username || !password){
         next({ status: 401, message: 'username and password required'})
     }else{
         next()
