@@ -18,7 +18,18 @@ const registerUsernameExists = async (req, res, next) => {
     }
 }
 
+const loginUsernameExists = async (req, res, next) => {
+    const existing = await User.findBy({ username: req.body.username })
+    if(!existing){
+        next({ status: 401, message: 'invalid credentials' })
+    }else{
+        req.user = existing
+        next()
+    }
+}
+
 module.exports = {
     checkUsernameAndPassword,
-    registerUsernameExists
+    registerUsernameExists,
+    loginUsernameExists
 }
